@@ -1,64 +1,40 @@
- fun main() {
-    val contaAlex = Conta("Alex", 1000)
-    contaAlex.depositar(100.0)
+fun main() {
+    println("Bem vindo ao Bytebank")
 
-    val contaFran = Conta("Fran", 1001)
-    contaFran.depositar(50.0)
+    val contaCorrente = ContaCorrente(
+        titular = "Alex",
+        numero = 1000
+    )
+    val contaPoupanca = ContaPoupanca(
+        titular = "Fran",
+        numero = 1001
+    )
 
-    println("Adicionando R$50 na conta do Alex")
-    contaAlex.depositar(50.00)
-    println("Adicionando R$20 na conta da Fran")
-    contaFran.depositar(20.0)
-    println("Sacando R$100 na conta do Alex")
-    contaAlex.sacar(100.0)
-    println("Sacando R$1000 na conta da Fran")
-    contaFran.sacar(1000.0)
-    println("Relizando transferencia da conta da Fran para a conta do Alex")
-    if(contaFran.transferir(1.0, contaAlex)){
-        println("Transferencia realizada com sucesso.")
-    } else {
-        println("Erro na transferencia.")
-    }
-}
+    contaCorrente.deposita(1000.0)
+    contaPoupanca.deposita(1000.0)
 
-class Conta(var titular: String, var numeroDaConta: Int) {
-    private var saldo = 0.0
-        set(value){
-            if(value >= 0){
-                field = value
-            }
-        }
+    println("saldo corrente: ${contaCorrente.saldo}")
+    println("saldo poupança: ${contaPoupanca.saldo}")
 
-    fun depositar(valorDeposito: Double) {
-        this.saldo += valorDeposito
-        println("Deposito efetuado com sucesso. O saldo atual é: ${this.saldo}")
-    }
+    contaCorrente.saca(100.0)
+    contaPoupanca.saca(100.0)
 
-    fun sacar(valorSaque: Double) {
-        if (this.saldo >= valorSaque) {
-            this.saldo -= valorSaque
-            println("Saque efetuado com sucesso. O saldo atual é: ${this.saldo}")
-        } else {
-            println("O valor de saque é maior que o valor de saldo! Valor de saldo ${this.saldo} | valor de saque: ${valorSaque}")
-        }
-    }
+    println("saldo após saque corrente: ${contaCorrente.saldo}")
+    println("saldo após saque poupança: ${contaPoupanca.saldo}")
 
-    fun transferir(valorTransferencia: Double, contaDestinatario: Conta): Boolean{
-        if(valorTransferencia <= this.saldo){
-            this.saldo -= valorTransferencia
-            contaDestinatario.saldo += valorTransferencia
-            println("Saldo conta de origem ${this.saldo} | Saldo conta do destinatario ${contaDestinatario.saldo}")
-            return true
-        }
-        return false
-    }
+    contaCorrente.transfere(100.0, contaPoupanca)
+
+    println("saldo corrente após tranferir para poupança: ${contaCorrente.saldo}")
+    println("saldo poupança após receber transferência: ${contaPoupanca.saldo}")
+
+    contaPoupanca.transfere(200.0, contaCorrente)
+
+    println("saldo poupança após tranferir para corrente: ${contaPoupanca.saldo}")
+    println("saldo corrente após receber transferência: ${contaCorrente.saldo}")
+
 }
 
 
-fun verificarSaldo(saldo: Double) {
-    when {
-        saldo > 0.0 -> println("Saldo é positivo")
-        saldo == 0.0 -> println("Sem saldo")
-        else -> println("Saldo negativo")
-    }
-}
+
+
+
