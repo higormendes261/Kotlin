@@ -1,5 +1,5 @@
 fun testaFuncionarios() {
-    val alex = Funcionario(
+    val alex = Analista(
         nome = "Alex",
         cpf = "111.111.111-11",
         salario = 1000.0
@@ -22,7 +22,7 @@ fun testaFuncionarios() {
     println("salario ${fran.salario}")
     println("bonificação ${fran.bonificacao}")
 
-    if (fran.autentica(1234)) {
+    if (fran.autenticar(1234)) {
         println("autenticou com sucesso")
     } else {
         println("falha na autenticação")
@@ -42,7 +42,7 @@ fun testaFuncionarios() {
     println("bonificação ${gui.bonificacao}")
     println("plr ${gui.plr}")
 
-    if (gui.autentica(4000)) {
+    if (gui.autenticar(4000)) {
         println("autenticou com sucesso")
     } else {
         println("falha na autenticação")
